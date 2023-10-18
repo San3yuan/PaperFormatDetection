@@ -15,7 +15,7 @@ namespace PaperFormatDetection.Paperbase
         /// 目录标题10个参数 顺序分别是 0该部分是否必要 1标题之间空格数目 2对齐方式 3行间距 4段前间距 5段后间距 6中文字体 7英文字体 8字号 9是否加粗
         /// 目录内容7个参数 顺序分别是 0对齐方式 1行间距 2段前间距 3段后间距 4中文字体 5英文字体 6字号
         protected string[] Title = new string[10];
-        protected string[] Text = new string[7];
+        protected string[] Text = new string[11];
         public Catalog()
         {
 
@@ -85,14 +85,7 @@ namespace PaperFormatDetection.Paperbase
                                 Util.printError("目录页码两端不应有\"-\"" + "  ----" + str);
                             if (!Util.correctSpacingBetweenLines_line(p, doc, Text[1]))
                                 Util.printError("目录行间距错误，应为" + Util.DSmap[Text[1]] + "  ----" + str);
-                            if (!Util.correctSpacingBetweenLines_Be(p, doc, Text[2]))
-                                Util.printError("目录段前距错误，应为段前" + Util.getLine(Text[2]) + "  ----" + str);
-                            if (!Util.correctSpacingBetweenLines_Af(p, doc, Text[3]))
-                                Util.printError("目录段后距错误，应为段后" + Util.getLine(Text[3])  + "  ----" + str);
-                            if (!Util.correctHyperlinkFonts(p, doc, Text[4], Text[5]))
-                                Util.printError("目录字体错误，中文应为" + Text[4] + " 英文和数字应为" + Text[5] + "  ----" + str);
-                            if (!correctSize(p, doc, Text[6]))
-                                Util.printError("目录字号错误，应为" + Text[6] + "  ----" + str);
+                           
                             if (str.Length > 1 && (Regex.IsMatch(str.Substring(0, 1), @"[0-9]") || Regex.IsMatch(str.Substring(0, 1), @"[一二三四五六七八九十]")))
                             {
                                 calatogOrderDetect(p, doc);
@@ -162,9 +155,9 @@ namespace PaperFormatDetection.Paperbase
                 {
                     order = m.ToString();
                     char[] title=str.Substring(order.Length).ToCharArray();
-                    if ((!((title[0] == ' ') && (title[1] == ' ') && (title[2] != ' '))))
+                    if ((!((title[0] == ' ') && (title[1] != ' '))))
                     {
-                        Util.printError("目录序号与标题之间应有两个英文空格" + "  ----" + str);
+                        Util.printError("目录序号与标题之间应有一个英文空格" + "  ----" + str);
                     }
                     //一级标题
                     if (Util.getSubstrCount(order, ".") == 0)
@@ -181,6 +174,16 @@ namespace PaperFormatDetection.Paperbase
                         one_level = (Convert.ToInt32(one_level) + 1).ToString();
                         if (!Util.correctIndentation(p, doc, Text[0]))
                             Util.printError("目录缩进错误，应为总体缩进 " + Text[0] + "字符  ----" + str);
+                        if (!Util.correctSpacingBetweenLines_Be(p, doc, Text[2]))
+                            Util.printError("目录段前距错误，应为段前" + Util.getLine(Text[2]) + "  ----" + str);
+                        if (!Util.correctSpacingBetweenLines_Af(p, doc, Text[3]))
+                            Util.printError("目录段后距错误，应为段后" + Util.getLine(Text[3]) + "  ----" + str);
+                        if (!Util.correctHyperlinkFonts(p, doc, Text[4], Text[5]))
+                            Util.printError("目录字体错误，中文应为" + Text[4] + " 英文和数字应为" + Text[5] + "  ----" + str);
+                        if (!Util.correctsize(p, doc, Text[6]))
+                            Util.printError("目录标题字号错误，应为" + Text[6]);
+                        if (!Util.correctJustification(p, doc, Text[10]) && !Util.correctJustification(p, doc, "两端对齐"))
+                            Util.printError("目录标题未" + Text[10]+ "----" + title);
                     }
                     //二级标题
                     else if (Util.getSubstrCount(order, ".") == 1)
@@ -193,9 +196,20 @@ namespace PaperFormatDetection.Paperbase
                         int i = two_level.IndexOf(".");
                         //二级标题加一
                         two_level = two_level.Substring(0, i + 1) + (Convert.ToInt32(two_level.Substring(i + 1, two_level.Length - i - 1)) + 1).ToString();
-                        string dd = (int.Parse(Text[0]) + 2).ToString(); 
+                        string dd = (int.Parse(Text[0]) + 1).ToString(); 
                         if (!Util.correctIndentation(p, doc, dd))
                             Util.printError("目录缩进错误，应为总体缩进 " + dd + "字符  ----" + str);
+                        if (!Util.correctSpacingBetweenLines_Be(p, doc, Text[7]))
+                            Util.printError("目录段前距错误，应为段前" + Util.getLine(Text[7]) + "  ----" + str);
+                        if (!Util.correctSpacingBetweenLines_Af(p, doc, Text[8]))
+                            Util.printError("目录段后距错误，应为段后" + Util.getLine(Text[8]) + "  ----" + str);
+                        if (!Util.correctHyperlinkFonts(p, doc, Text[9], Text[5]))
+                            Util.printError("目录字体错误，中文应为" + Text[9] + " 英文和数字应为" + Text[5] + "  ----" + str);
+                        if (!Util.correctsize(p, doc, Text[6]))
+                            Util.printError("目录标题字号错误，应为" + Text[6]);
+                        if (!Util.correctJustification(p, doc, Text[10]) && !Util.correctJustification(p, doc, "两端对齐"))
+                            Util.printError("目录标题未" + Text[10] + "----" + title);
+
                     }
                     //三级标题
                     else if (Util.getSubstrCount(order, ".") == 2)
@@ -208,9 +222,19 @@ namespace PaperFormatDetection.Paperbase
                         //三级标题加一
                         three_level = three_level.Substring(0, ii + 1) + (Convert.ToInt32(three_level.Substring(ii + 1, three_level.Length - ii - 1)) + 1).ToString();
 
-                        string ddd = (int.Parse(Text[0]) + 4).ToString();
+                        string ddd = (int.Parse(Text[0]) + 2).ToString();
                         if (!Util.correctIndentation(p, doc, ddd))
                             Util.printError("目录缩进错误，应为总体缩进 " + ddd + "字符  ----" + str);
+                        if (!Util.correctSpacingBetweenLines_Be(p, doc, Text[7]))
+                            Util.printError("目录段前距错误，应为段前" + Util.getLine(Text[7]) + "  ----" + str);
+                        if (!Util.correctSpacingBetweenLines_Af(p, doc, Text[8]))
+                            Util.printError("目录段后距错误，应为段后" + Util.getLine(Text[8]) + "  ----" + str);
+                        if (!Util.correctHyperlinkFonts(p, doc, Text[9], Text[5]))
+                            Util.printError("目录字体错误，中文应为" + Text[9] + " 英文和数字应为" + Text[5] + "  ----" + str);
+                        if (!Util.correctsize(p, doc, Text[6]))
+                            Util.printError("目录标题字号错误，应为" + Text[6]);
+                        if (!Util.correctJustification(p, doc, Text[10]) && !Util.correctJustification(p, doc, "两端对齐"))
+                            Util.printError("目录标题未" + Text[10] + "----" + title);
                     }
                     //超过三级标题
                     else
