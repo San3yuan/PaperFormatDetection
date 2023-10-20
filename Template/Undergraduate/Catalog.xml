@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Root>
+	<Catalog>
+	  <Title>
+	    <necessary>true</necessary>
+		<space>4</space>
+		<justification>居中</justification>
+		<linebetween>300</linebetween>
+		<linebefore>480</linebefore>
+		<lineafter>480</lineafter>
+		<CNfont>黑体</CNfont>
+		<ENfont>Times New Roman</ENfont>
+		<fontsize>小二</fontsize>
+		<bold>false</bold>
+	  </Title>
+	  
+	  <Text>
+		<ind>0</ind>
+		<linebetween>300</linebetween>
+		<linebefore>120</linebefore>
+		<lineafter>120</lineafter>
+		<CNfont>黑体</CNfont>
+		<ENfont>Times New Roman</ENfont>
+		<fontsize>小四</fontsize>
+                <linebetween>0</linebetween>
+		<linebefore>0</linebefore>
+                <CNfont>宋体</CNfont>
+                <justification>居左</justification>
+	  </Text>
+	</Catalog>
+</Root>
