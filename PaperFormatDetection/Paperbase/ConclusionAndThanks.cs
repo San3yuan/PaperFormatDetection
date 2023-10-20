@@ -101,6 +101,7 @@ namespace PaperFormatDetection.Paperbase
         //致谢检测
         public void detectThanks(List<Paragraph> list, WordprocessingDocument doc)
         {
+           
             if (list.Count <= 0)
             {
                 if (bool.Parse(thanksTitle[0]))
@@ -123,6 +124,7 @@ namespace PaperFormatDetection.Paperbase
                     Util.printError("致谢标题字体错误，应为" + thanksTitle[6]);
                 if (!Util.correctsize(list[0], doc, thanksTitle[7])) 
                     Util.printError("致谢标题字号错误，应为" + thanksTitle[7]);
+               
                 if (!Util.correctBold(list[0], doc, bool.Parse(thanksTitle[8])))
                 {
                     if (bool.Parse(thanksTitle[8]))
@@ -130,18 +132,26 @@ namespace PaperFormatDetection.Paperbase
                     else
                         Util.printError("致谢标题不需加粗");
                 }
-                //致谢正文
+                //致谢正文 
                 for (int i = 1; i < list.Count; i++)
                 {
                     string temp = Util.getFullText(list[i]);
                     if (temp.Trim().Length == 0) continue;
+                    
                     temp = "  ----" + (temp.Length > 10 ? temp.Substring(0, 10) : temp) + "......";
                     if (!Util.correctIndentation(list[i], doc, thanksText[0]))
                         Util.printError("致谢缩进错误，应为首行缩进" + thanksText[0] + "字符" + temp);
+                    
                     if (!Util.correctSpacingBetweenLines_line(list[i], doc, thanksText[2]))
+                    {
+                        Console.WriteLine(thanksText[2]);
                         Util.printError("致谢行间距错误，应为" + Util.DSmap[thanksText[2]] + temp);
+                    }
+                        
+                   
                     if (!Util.correctSpacingBetweenLines_Be(list[i], doc, thanksText[3]))
                         Util.printError("致谢段前距错误，应为段前" + Util.getLine(thanksText[3]) + temp);
+                   
                     if (!Util.correctSpacingBetweenLines_Af(list[i], doc, thanksText[4]))
                         Util.printError("致谢段后距错误，应为段后" + Util.getLine(thanksText[4]) + temp);
                     if (!Util.correctfonts(list[i], doc, thanksText[5], "Times New Roman")) 

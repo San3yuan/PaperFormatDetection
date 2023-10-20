@@ -39,19 +39,25 @@ namespace PaperFormatDetection.Undergraduate
             {
 
             }
-
-            Console.WriteLine("starting detection");
+            Util.printError("");
             new Abstract(wd);
-            Console.WriteLine("摘要检测完成");
+            Util.printError("");
             new Catalog(wd);
+            Util.printError("");
             new Text(wd);
+            Util.printError("");
             //new Formula(wd);
             new Figure(wd);
+            Util.printError("");
             new Tabledect(wd);
+            Util.printError("");
             //new HeaderFooter(wd, "under");
             new ConclusionAndThanks(wd);
+            Util.printError("");
             new Reference(wd);
+            Util.printError("");
             new Appendix(wd);
+            Util.printError("");
             new Punctuation(wd);
 
             Console.WriteLine("正在生成报告，请稍后...");

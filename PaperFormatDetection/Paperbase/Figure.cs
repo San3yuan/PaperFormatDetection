@@ -27,7 +27,7 @@ namespace PaperFormatDetection.Paperbase
         protected int UpBlankToPicLns;    //向上空格
         protected int DownBlankToPicLns;      //向下空格
 
-        protected int MNtoName;       //M.N 到图名空格数
+        protected int MNtoName;       //M-N 到图名空格数
 
         protected string PicJustification;
 

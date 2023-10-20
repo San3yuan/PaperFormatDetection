@@ -75,6 +75,7 @@ namespace PaperFormatDetection.Undergraduate
             {
                 this.thanksText[m] = node.InnerText; m++;
             }
+            
         }
     }
 }

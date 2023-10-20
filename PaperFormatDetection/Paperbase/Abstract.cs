@@ -21,7 +21,7 @@ namespace PaperFormatDetection.Paperbase
         protected string[] abstitleE = { "ture", "8", "center", "0", "0", "0", "0", "0", "false", "justify" };
         protected string[] abstextE = { "2", "0", "0", "0", "Times New Roman", "0", "0", "Cambria", "Calibri" };
         protected string[] abskeywordE = { "Times New Roman", "0", "2", "5", "0", "宋体" };
-        protected int change = 0;
+        protected int change = 1;
         public Abstract()
         {
 
@@ -56,6 +56,7 @@ namespace PaperFormatDetection.Paperbase
             for (int i = 1; i < list.Count; i++)
             { /// 正文7个参数 顺序分别是 0缩进  1行间距 2段前间距 3段后间距 4字体 5字号
                 string temp = Tool.getFullText(list[i]).Trim();
+
                 temp = (temp.Length > 5 ? temp.Substring(0, 5) : temp);
                 if (temp.Length > 4 && (temp.Replace(" ", "").Substring(0, 4) == "关键词：" || temp.Replace(" ", "").Substring(0, 4) == "关键词:")) break;
                 if (temp.Length == 0) continue;
@@ -89,7 +90,7 @@ namespace PaperFormatDetection.Paperbase
                             if (!Util.correctRunFonts(run, list[i], doc, "宋体", "")) Util.printError("“关键词：”这四个字字体错误，应为黑体");
                             if (change == 0)
                             {
-                                if (Util.correctBold(list[i], doc, bool.Parse(abstitle[8])))
+                                if (Util.correctBold(list[i], doc, !bool.Parse(abstitle[8])))
                                 {
                                     Util.printError("中文关键词需要加粗");
 

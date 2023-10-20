@@ -31,35 +31,6 @@ namespace PaperFormatDetection.Tools
                 //Console.WriteLine("3333   " + filename);
 
                 WriteTXT(filename.ToString().Replace("docx", "txt"), eLists);
-
-                //创建Word文档
-                //WordApp = new ApplicationClass();
-                //WordDoc = WordApp.Documents.Add(ref Nothing, ref Nothing, ref Nothing, ref Nothing);
-                ////设置页眉
-                //WordApp.ActiveWindow.View.Type = Microsoft.Office.Interop.Word.WdViewType.wdOutlineView;
-                //WordApp.ActiveWindow.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekPrimaryHeader;
-                //WordApp.ActiveWindow.ActivePane.Selection.InsertAfter(paperName.Replace(".docx", "--")+Util.paperType+"论文检测报告");
-                //WordApp.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;//设置右对齐
-                //WordApp.ActiveWindow.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekMainDocument;//跳出页眉设置
-
-                //oPara1 = WordDoc.Content.Paragraphs.Add(ref Nothing);
-                //writeError(eLists);
-
-                //WordDoc.SaveAs(ref filename, ref Nothing, ref Nothing, ref Nothing,
-                //ref Nothing, ref Nothing, ref Nothing, ref Nothing, ref Nothing,
-                //ref Nothing, ref Nothing, ref Nothing, ref Nothing, ref Nothing,
-                //ref Nothing, ref Nothing);
-
-                //WordDoc.Close();
-                //WordDoc = null;
-                //WordApp.Quit();
-                //WordApp = null;
-
-                Console.WriteLine("正在将报告转为PDF...");
-                if (WordToPdf(filename.ToString()))
-                    Console.WriteLine("报告转换成功！");
-                else
-                    Console.WriteLine("报告转换失败！");
             }
             catch (Exception ex)
             {

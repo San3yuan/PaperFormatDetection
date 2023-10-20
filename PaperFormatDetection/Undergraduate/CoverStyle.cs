@@ -15,10 +15,8 @@ namespace PaperFormatDetection.Undergraduate
         public static List<Paragraph> CovSectionLoction(WordprocessingDocument doc, int paperType)
         {
             string[] Undergraduate = new string[] { "摘要", "Abstract", "目录", "引言", "正文", "结论", "参考文献", "附录", "致谢" };
-            string[] Master = new string[] { "大连理工大学学位论文独创性声明", "摘要", "Abstract", "目录", "引言", "正文", "结论",
-                                             "参考文献", "附录", "攻读硕士学位期间发表学术论文情况", "致谢", "大连理工大学学位论文版权使用授权书" };
-            string[] Doctor = new string[] { "大连理工大学学位论文独创性声明", "大连理工大学学位论文版权使用授权书", "摘要", "ABSTRACT", "目录", "TABLE OF CONTENTS",
-                                             "图目录","表目录","主要符号表","正文", "参考文献", "附录", "攻读博士学位期间科研项目及科研成果", "致谢", "作者简介" };
+            string[] Master = new string[] {  };
+            string[] Doctor = new string[] {  };
             string[][] type = new string[][] { Undergraduate, Master, Doctor };
             Body body = doc.MainDocumentPart.Document.Body;
             IEnumerable<Paragraph> paras = body.Elements<Paragraph>();

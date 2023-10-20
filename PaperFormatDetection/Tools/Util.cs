@@ -21,7 +21,7 @@ namespace PaperFormatDetection.Tools
         public static string masterType = "专业学位硕士";
         public static string paperType = null;
         public static Dictionary<string, string> DSmap = new Dictionary<string, string>() { { "0", "0倍行距" },{ "120", "0.5倍行距" }, { "240", "1倍行距" },{ "300", "1.25倍行距" }, { "360", "1.5倍行距" },
-                                                                                            { "480", "二倍行距" }, { "720", "三倍行距" }, { "220", "11磅" }, { "500", "25磅" } };
+                                                                                            { "480", "二倍行距" }, { "720", "三倍行距" }, { "220", "11磅" }, { "500", "25磅" }, {"400", "20磅" } };
         public static int firstCharSize = 24;
         //错误输出,为调试方便，直接在命令行输出，后期可以将错误提示输出到文件中，只用修改此方法即可
         public static void printError(string str)
@@ -166,10 +166,8 @@ namespace PaperFormatDetection.Tools
         public static List<Paragraph> sectionLoction(WordprocessingDocument doc, string section, int paperType)
         {
             string[] Undergraduate = new string[] {"学士论文版权使用授权书", "中文摘要", "ABSTRACT", "目录", "引言", "绪论", "结论", "参考文献", "附录", "致谢" };
-            string[] Master = new string[] { "大连理工大学学位论文独创性声明", "摘要", "Abstract", "目录", "引言", "正文", "结论",
-                                             "参考文献", "附录", "攻读硕士学位期间发表学术论文情况", "致谢", "大连理工大学学位论文版权使用授权书" };
-            string[] Doctor = new string[] { "大连理工大学学位论文独创性声明", "大连理工大学学位论文版权使用授权书", "摘要", "ABSTRACT", "目录", "TABLE OF CONTENTS",
-                                             "图目录","表目录","主要符号表","正文", "参考文献", "附录", "攻读博士学位期间科研项目及科研成果", "致谢", "作者简介" };
+            string[] Master = new string[] {  };
+            string[] Doctor = new string[] {  };
             string[][] type = new string[][] { Undergraduate, Master, Doctor };
             int index = Array.IndexOf(type[paperType], section);
             Body body = doc.MainDocumentPart.Document.Body;
@@ -1297,82 +1295,6 @@ namespace PaperFormatDetection.Tools
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //获得表所在章节号,图也可用 location为第几段
         public static string Chapter(List<int> titlePosition, int location, Body body)
         {
@@ -1655,7 +1577,7 @@ namespace PaperFormatDetection.Tools
                 {
                     if (j + l < len && j + l >= 0)
                     {
-                        if ((title[j + l] >= '0' && title[j + l] <= '9') || title[j + l] == '.')
+                        if ((title[j + l] >= '0' && title[j + l] <= '9') || title[j + l] == '-')
                         {
                             num += title[j + l];
                         }
@@ -1800,7 +1722,7 @@ namespace PaperFormatDetection.Tools
                 }
             }
             //序号后g空格
-            if (l + numlen + 1 < title.Length)
+            if (l + numlen +1 < title.Length)
             {
                 for (int j = l + numlen; j < numlen + l + g; j++)
                 {
@@ -1815,10 +1737,10 @@ namespace PaperFormatDetection.Tools
                     a[1] = 0;
                 }
             }
-            //m.n格式
+            //m-n格式
             if (l + 2 < title.Length && l >= 0)
             {
-                if (title[l + 1] == '.')//m为一位数
+                if (title[l + 1] == '-')//m为一位数
                 {
                     for (int j = 2; j < numlen; j++)
                     {
@@ -1828,7 +1750,7 @@ namespace PaperFormatDetection.Tools
                         }
                     }
                 }
-                else if (title[l + 2] == '.')//m为两位数
+                else if (title[l + 2] == '-')//m为两位数
                 {
                     for (int j = 3; j < numlen; j++)
                     {
@@ -1838,7 +1760,7 @@ namespace PaperFormatDetection.Tools
                         }
                     }
                 }
-                else if (title[l + 2] != '.'|| title[l + 1] != '.')//m为两位数
+                else if (title[l + 2] != '-'|| title[l + 1] != '-')//m为两位数
                 {
                     a[2] = 0;
                 }
