@@ -146,7 +146,7 @@ namespace PaperFormatDetection.Tools
             foreach (Paragraph p in paras)
             {
                 string text = Util.getFullRunText(p).Replace(" ","");
-                if (text.Length == 0 || text == "硕士学位论文" || text == "专业学位硕士学位论文"|| text == "大连理工大学本科毕业设计（论文）")
+                if (text.Length == 0 || text == "硕士学位论文" || text == "专业学位硕士学位论文"|| text == "北京交通大学本科毕业设计（论文）")
                     continue; ;
                 if (Regex.IsMatch(text, @"^[^\u4e00-\u9fa5]+$"))
                     break;
@@ -166,11 +166,8 @@ namespace PaperFormatDetection.Tools
         public static List<Paragraph> sectionLoction(WordprocessingDocument doc, string section, int paperType)
         {
             string[] Undergraduate = new string[] {"学士论文版权使用授权书", "中文摘要", "ABSTRACT", "目录", "引言", "绪论", "结论", "参考文献", "附录", "致谢" };
-            string[] Master = new string[] { "大连理工大学学位论文独创性声明", "摘要", "Abstract", "目录", "引言", "正文", "结论",
-                                             "参考文献", "附录", "攻读硕士学位期间发表学术论文情况", "致谢", "大连理工大学学位论文版权使用授权书" };
-            string[] Doctor = new string[] { "大连理工大学学位论文独创性声明", "大连理工大学学位论文版权使用授权书", "摘要", "ABSTRACT", "目录", "TABLE OF CONTENTS",
-                                             "图目录","表目录","主要符号表","正文", "参考文献", "附录", "攻读博士学位期间科研项目及科研成果", "致谢", "作者简介" };
-            string[][] type = new string[][] { Undergraduate, Master, Doctor };
+            
+            string[][] type = new string[][] { Undergraduate };
             int index = Array.IndexOf(type[paperType], section);
             Body body = doc.MainDocumentPart.Document.Body;
             IEnumerable<Paragraph> paras = body.Elements<Paragraph>();
